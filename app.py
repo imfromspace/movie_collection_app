@@ -13,23 +13,36 @@ def add_movie():
     })
 
 
+def print_movie(movie):
+    print(f"{movie['title'].title()} was released in {movie['year']} year and directed by {movie['director'].title()}.")
+
+
 def list_movies():
     for movie in movies:
-        print(f"> {movie['title'].title()}")
+        print_movie(movie)
 
 
-def find_movie(search_query):
+def find_movie():
+    search_query = input("Please enter the name/release date/director of the movie: ")
     for movie in movies:
         if search_query.lower() in movie.values():
-            print(f"{movie['title'].title()} was released in {movie['year']} year and directed by {movie['director'].title()}.")
+            print_movie(movie)
 
 
-command = input(MENU_PROMPT)
-while command != 'q':
-    if command == 'a':
-        add_movie()
-    if command == 'f':
-        find_movie(input("Please enter the name/release date/director of the movie: "))
-    if command == 'l':
-        list_movies()
+user_options = {
+    'a': add_movie,
+    'l': list_movies,
+    'f': find_movie
+}
+
+
+def menu():
     command = input(MENU_PROMPT)
+    while command != 'q':
+        if command in user_options:
+            user_options[command]()
+        else:
+            print('Unknown command. Please try again.')
+
+
+menu()
