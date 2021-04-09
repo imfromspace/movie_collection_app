@@ -43,6 +43,7 @@ def menu():
             user_options[command]()
         else:
             print('Unknown command. Please try again.')
+        command = input(MENU_PROMPT)
 
 
 menu()
